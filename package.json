@@ -1,0 +1,16 @@
+{
+  "name": "bom-bena",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bom Bena food delivery platform monorepo",
+  "workspaces": ["apps/api"],
+  "scripts": {
+    "dev:api": "npm run start:dev --workspace @bom-bena/api",
+    "build:api": "npm run build --workspace @bom-bena/api",
+    "test:api": "npm run test --workspace @bom-bena/api",
+    "db:generate": "npm run prisma:generate --workspace @bom-bena/api",
+    "db:migrate": "npm run prisma:migrate --workspace @bom-bena/api",
+    "db:seed": "npm run prisma:seed --workspace @bom-bena/api"
+  },
+  "engines": { "node": ">=20.11" }
+}
