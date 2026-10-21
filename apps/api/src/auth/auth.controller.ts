@@ -1,10 +1,12 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
+import { AccessTokenGuard, AuthenticatedRequest } from './access-token.guard';
 import { AuthService } from './auth.service';
 import { LoginDto, RefreshDto, RegisterDto } from './auth.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly auth: AuthService) {}
+  @Get('me') @UseGuards(AccessTokenGuard) me(@Req() request: AuthenticatedRequest) { return this.auth.getProfile(request.user.sub); }
   @Post('register') register(@Body() dto: RegisterDto) { return this.auth.register(dto); }
   @Post('login') @HttpCode(200) login(@Body() dto: LoginDto) { return this.auth.login(dto); }
   @Post('refresh') @HttpCode(200) refresh(@Body() dto: RefreshDto) { return this.auth.refresh(dto.refreshToken); }

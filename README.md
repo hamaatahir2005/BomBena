@@ -25,6 +25,7 @@ Auth endpoints:
 - `POST /api/v1/auth/login` — `{ "identifier": "email-or-phone", "password": "..." }`.
 - `POST /api/v1/auth/refresh` — `{ "refreshToken": "..." }`; rotates and revokes the old refresh token.
 - `POST /api/v1/auth/logout` — `{ "refreshToken": "..." }`; idempotently revokes it.
+- `GET /api/v1/auth/me` — requires `Authorization: Bearer <accessToken>` and returns the authenticated account.
 
 Registration immediately creates an active customer identity. Production launch requires verification and abuse prevention flows. No demo login is created.
 

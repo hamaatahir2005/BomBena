@@ -31,6 +31,12 @@ export class AuthService {
     }
   }
 
+  async getProfile(userId: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId }, select: SAFE_USER_SELECT });
+    if (!user || user.status !== AccountStatus.ACTIVE) throw new UnauthorizedException('Account is not active');
+    return this.publicUser(user);
+  }
+
   async login(dto: LoginDto) {
     const identifier = dto.identifier.includes('@') ? dto.identifier.toLowerCase() : dto.identifier;
     const user = await this.prisma.user.findFirst({ where: { OR: [{ email: identifier }, { phone: identifier }] } });

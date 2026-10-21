@@ -21,7 +21,7 @@ The database persists amounts as integer minor units with an ISO currency code (
 
 ## Authentication and security foundations
 
-Phase 1 implements email/phone plus password registration and login, bcrypt password hashing, short-lived signed access tokens, rotating opaque-to-client refresh JWTs stored as bcrypt hashes, logout revocation, DTO validation, security headers and strict environment validation. Roles are carried in access token claims and are intended to be checked by server guards for every protected route. Email/phone verification, OTP delivery and production identity proofing require external providers and are not claimed as complete. Never expose token hashes, password hashes, or private rider documents.
+Phase 1 implements email/phone plus password registration and login, bcrypt password hashing, short-lived signed access tokens, rotating refresh JWTs stored as bcrypt hashes, logout revocation, bearer access guard, role metadata/guard, authenticated profile endpoint, DTO validation, security headers and strict environment validation. Roles are carried in access token claims and are intended to be checked by server guards for every protected route. Email/phone verification, OTP delivery and production identity proofing require external providers and are not claimed as complete. Never expose token hashes, password hashes, or private rider documents.
 
 Critical order and payment mutations must use transactions, unique idempotency keys, server-side price lookup, explicit transition authorization and outbox/job patterns for delivery of external events. Online payment remains disabled until an Iraq-available provider is contracted, credentials are configured and webhook signatures can be verified. COD is the first live method.
 
